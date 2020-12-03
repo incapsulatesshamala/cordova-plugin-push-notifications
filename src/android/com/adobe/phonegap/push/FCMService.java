@@ -47,6 +47,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.security.SecureRandom;
+import java.sql.Timestamp;
+import java.time.Instant;
 
 @SuppressLint("NewApi")
 public class FCMService extends FirebaseMessagingService implements PushConstants {
@@ -392,7 +394,12 @@ public class FCMService extends FirebaseMessagingService implements PushConstant
     String packageName = context.getPackageName();
     Resources resources = context.getResources();
 
-    int notId = parseInt(NOT_ID, extras);
+    // int notId = parseInt(NOT_ID, extras);
+    // My code
+    Date instant= Timestamp.from(Instant.now());
+    int notId = (int) instant.getTime();
+    Log.d(LOG_TAG, "My NOT_ID is" + notId);
+    // My code
     Intent notificationIntent = new Intent(this, PushHandlerActivity.class);
     notificationIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
     notificationIntent.putExtra(PUSH_BUNDLE, extras);
